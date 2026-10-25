@@ -26,6 +26,7 @@
             line-height: 1.5;
         }
         .red { color: #8b0000; }
+        .green { color: #2e8b57; }
         input[type="text"] {
             background-color: transparent;
             border: none;
@@ -63,10 +64,15 @@
 </head>
 <body>
 
+    <audio id="bgAudio" loop>
+        <source src="qlham_sstv.wav" type="audio/wav">
+    </audio>
+
     <div class="terminal" id="mainTerminal">
         <div class="line">> INITIALIZING SECURE NODE_03...</div>
         <div class="line">> CONNECTION ESTABLISHED_</div>
         <div class="line">> WARNING: DATA IS CORRUPTED.</div>
+        <div class="line">> BACKGROUND FREQUENCY DETECTED.</div>
         <br>
         <div class="line">closerwolf left a lock here. What is the key?</div>
         
@@ -110,6 +116,12 @@
                 return;
             }
 
+            if (input === "15") {
+                result.innerHTML = "<span class='red'>DECRYPTION FAILED. 15 IS NOT THE KEY. FIND THE WORDS.</span>";
+                document.getElementById("passInput").value = "";
+                return;
+            }
+
             if (input.toLowerCase() === _f()) {
                 terminal.style.display = "none";
                 success.style.display = "block";
@@ -140,46 +152,20 @@
                 document.body.innerHTML = "<div style='color:#8b0000; font-family:monospace; padding:50px; text-align:center; font-size:20px;'>[ CHEATING DETECTED. ]<br><br>IT SEES YOU NOW.</div>";
             }
         });
-    </script>
-</body>
-</html>
 
-        <div id="resultArea" class="line" style="margin-top: 20px;"></div>
-    </div>
-
-    <div id="successScreen" class="hidden-msg">
-        <p>ACCESS GRANTED.</p>
-        <p>But resistance is futile.</p>
-        <p>It is already inside.</p>
-        <p style="font-size: 12px; margin-top: 50px;">[ RECORD_04 IS LOADING... ]</p>
-    </div>
-
-    <script>
-        function checkPassword() {
-            var input = document.getElementById("passInput").value.trim();
-            var result = document.getElementById("resultArea");
-            var terminal = document.querySelector(".terminal");
-            var success = document.getElementById("successScreen");
-            var correctPassword = "the key to resistance";
-
-            if (input.toLowerCase() === correctPassword) {
-                terminal.style.display = "none";
-                success.style.display = "block";
-                document.title = "WELCOME, CLOSER.";
-            } else if (input === "") {
-                result.innerHTML = "<span class='red'>Input cannot be empty.</span>";
-            } else {
-                result.innerHTML = "<span class='red'>DECRYPTION FAILED. IT KNOWS YOU TRIED.</span>";
-                document.getElementById("passInput").value = "";
-            }
-        }
-
-        document.getElementById("passInput").addEventListener("keypress", function(event) {
-            if (event.key === "Enter") {
-                event.preventDefault();
-                checkPassword();
+        document.addEventListener('click', function() {
+            var audio = document.getElementById('bgAudio');
+            if (audio.paused) {
+                audio.play();
             }
         });
+
+        document.addEventListener('touchstart', function() {
+            var audio = document.getElementById("bgAudio");
+            if (audio.paused) {
+                audio.play();
+            }
+        }, false);
     </script>
 </body>
 </html>
