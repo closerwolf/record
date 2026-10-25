@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NODE_03 // TERMINAL</title>
+    <style>
+        body {
+            background-color: #050505;
+            color: #a0a0a0;
+            font-family: "Courier New", Courier, monospace;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 80vh;
+        }
+        .terminal {
+            width: 100%;
+            max-width: 600px;
+        }
+        .line {
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+        .red { color: #8b0000; }
+        input[type="text"] {
+            background-color: transparent;
+            border: none;
+            border-bottom: 1px solid #555;
+            color: #fff;
+            font-family: "Courier New", Courier, monospace;
+            font-size: 16px;
+            padding: 5px;
+            width: 80%;
+            outline: none;
+            margin-top: 20px;
+        }
+        button {
+            background-color: transparent;
+            border: 1px solid #555;
+            color: #a0a0a0;
+            font-family: "Courier New", Courier, monospace;
+            padding: 5px 15px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+        button:hover {
+            background-color: #222;
+            color: #fff;
+        }
+        .hidden-msg {
+            display: none;
+            margin-top: 30px;
+            color: #8b0000;
+            font-size: 20px;
+            text-align: center;
+            letter-spacing: 2px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="terminal">
+        <div class="line">> INITIALIZING SECURE NODE_03...</div>
+        <div class="line">> CONNECTION ESTABLISHED_</div>
+        <div class="line">> WARNING: DATA IS CORRUPTED.</div>
+        <br>
+        <div class="line">closerwolf left a lock here. What is the key?</div>
+        
+        <div style="margin-top: 30px;">
+            <span>> </span>
+            <input type="text" id="passInput" placeholder="Enter the key..." autocomplete="off">
+            <button onclick="checkPassword()">[ SUBMIT ]</button>
+        </div>
+
+        <div id="resultArea" class="line" style="margin-top: 20px;"></div>
+    </div>
+
+    <div id="successScreen" class="hidden-msg">
+        <p>ACCESS GRANTED.</p>
+        <p>But resistance is futile.</p>
+        <p>It is already inside.</p>
+        <p style="font-size: 12px; margin-top: 50px;">[ RECORD_04 IS LOADING... ]</p>
+    </div>
+
+    <script>
+        function checkPassword() {
+            var input = document.getElementById("passInput").value.trim();
+            var result = document.getElementById("resultArea");
+            var terminal = document.querySelector(".terminal");
+            var success = document.getElementById("successScreen");
+            var correctPassword = "the key to resistance";
+
+            if (input.toLowerCase() === correctPassword) {
+                terminal.style.display = "none";
+                success.style.display = "block";
+                document.title = "WELCOME, CLOSER.";
+            } else if (input === "") {
+                result.innerHTML = "<span class='red'>Input cannot be empty.</span>";
+            } else {
+                result.innerHTML = "<span class='red'>DECRYPTION FAILED. IT KNOWS YOU TRIED.</span>";
+                document.getElementById("passInput").value = "";
+            }
+        }
+
+        document.getElementById("passInput").addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                checkPassword();
+            }
+        });
+    </script>
+</body>
+</html>
