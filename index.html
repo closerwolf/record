@@ -16,6 +16,7 @@
             justify-content: center;
             min-height: 80vh;
             user-select: none;
+            overflow: hidden;
         }
         .terminal {
             width: 100%;
@@ -26,7 +27,6 @@
             line-height: 1.5;
         }
         .red { color: #8b0000; }
-        .green { color: #2e8b57; }
         input[type="text"] {
             background-color: transparent;
             border: none;
@@ -60,6 +60,17 @@
             text-align: center;
             letter-spacing: 2px;
         }
+        .glitch {
+            animation: glitch-anim 0.2s infinite;
+        }
+        @keyframes glitch-anim {
+            0% { transform: translate(0) }
+            20% { transform: translate(-2px, 2px) }
+            40% { transform: translate(-2px, -2px) }
+            60% { transform: translate(2px, 2px) }
+            80% { transform: translate(2px, -2px) }
+            100% { transform: translate(0) }
+        }
     </style>
 </head>
 <body>
@@ -86,10 +97,10 @@
     </div>
 
     <div id="successScreen" class="hidden-msg">
-        <p>ACCESS GRANTED.</p>
-        <p>But resistance is futile.</p>
-        <p>It is already inside.</p>
-        <p style="font-size: 12px; margin-top: 50px;">[ RECORD_04 IS LOADING... ]</p>
+        <p id="msg1">ACCESS GRANTED.</p>
+        <p id="msg2">But resistance is futile.</p>
+        <p id="msg3">It is already inside.</p>
+        <p id="msg4" style="font-size: 12px; margin-top: 50px;">[ RECORD_04 IS LOADING... ]</p>
     </div>
 
     <script>
@@ -126,12 +137,38 @@
                 terminal.style.display = "none";
                 success.style.display = "block";
                 document.title = "WELCOME, CLOSER.";
+                triggerDelete();
             } else if (input === "") {
                 result.innerHTML = "<span class='red'>Input cannot be empty.</span>";
             } else {
                 result.innerHTML = "<span class='red'>DECRYPTION FAILED. IT KNOWS YOU TRIED.</span>";
                 document.getElementById("passInput").value = "";
             }
+        }
+
+        function triggerDelete() {
+            setTimeout(function() {
+                document.body.classList.add('glitch');
+                document.title = "WAIT...";
+                document.getElementById("msg1").innerText = "WHAT?";
+                document.getElementById("msg2").innerText = "";
+                document.getElementById("msg3").innerText = "";
+                document.getElementById("msg4").innerText = "";
+
+                setTimeout(function() {
+                    document.getElementById("msg1").innerText = "DELETE";
+                    document.getElementById("msg1").style.fontSize = "50px";
+                    document.title = "IT SEES YOU.";
+                    
+                    setTimeout(function() {
+                        document.body.classList.remove('glitch');
+                        document.body.innerHTML = "<div style='color:#8b0000; font-family:monospace; text-align:center;'><h1>404</h1><p>NODE_03 HAS BEEN DELETED.</p></div>";
+                        document.title = "404 DELETED";
+                    }, 2500);
+
+                }, 1500);
+
+            }, 5000);
         }
 
         document.getElementById("passInput").addEventListener("keypress", function(event) {
@@ -143,7 +180,6 @@
 
         document.addEventListener('contextmenu', function(e) {
             e.preventDefault();
-            document.getElementById('resultArea').innerHTML = "<span class='red'>RIGHT CLICK DISABLED. DO NOT LOOK BEHIND THE CODE.</span>";
         });
 
         document.addEventListener('keydown', function(e) {
