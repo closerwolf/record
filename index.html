@@ -141,6 +141,8 @@
             setTimeout(function() {
                 document.body.classList.add('glitch');
                 document.title = "IT SEES YOU.";
+                
+                // 闪烁时的文本覆盖
                 document.getElementById("msg1").innerText = "DELETE";
                 document.getElementById("msg1").style.fontSize = "50px";
                 document.getElementById("msg2").innerText = "";
@@ -148,14 +150,17 @@
                 document.getElementById("msg4").innerText = "";
 
                 setTimeout(function() {
+                    // 闪烁结束，显示最终图片和文字
                     document.body.classList.remove('glitch');
+                    
                     document.getElementById("msg1").innerText = "RECORD_04 FOUND.";
                     document.getElementById("msg1").style.color = "#fff";
                     document.getElementById("msg1").style.fontSize = "24px";
                     
+                    document.getElementById("msg2").innerText = "It is closer now.";
+                    
                     var img = document.getElementById("glitchImage");
                     img.style.display = "inline-block";
-                    document.getElementById("msg2").innerText = "It is closer now.";
 
                 }, 3000);
 
@@ -183,52 +188,6 @@
         document.addEventListener('touchstart', function() {
             var audio = document.getElementById("bgAudio");
             if (audio.paused) { audio.play(); }
-        }, false);
-    </script>
-</body>
-</html>               document.title = "IT SEES YOU.";
-                    
-                    setTimeout(function() {
-                        document.body.classList.remove('glitch');
-                        document.body.innerHTML = "<div style='color:#8b0000; font-family:monospace; text-align:center;'><h1>404</h1><p>NODE_03 HAS BEEN DELETED.</p></div>";
-                        document.title = "404 DELETED";
-                    }, 2500);
-
-                }, 1500);
-
-            }, 5000);
-        }
-
-        document.getElementById("passInput").addEventListener("keypress", function(event) {
-            if (event.key === "Enter") {
-                event.preventDefault();
-                checkPassword();
-            }
-        });
-
-        document.addEventListener('contextmenu', function(e) {
-            e.preventDefault();
-        });
-
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i'))) {
-                e.preventDefault();
-                document.body.innerHTML = "<div style='color:#8b0000; font-family:monospace; padding:50px; text-align:center; font-size:20px;'>[ CHEATING DETECTED. ]<br><br>IT SEES YOU NOW.</div>";
-            }
-        });
-
-        document.addEventListener('click', function() {
-            var audio = document.getElementById('bgAudio');
-            if (audio.paused) {
-                audio.play();
-            }
-        });
-
-        document.addEventListener('touchstart', function() {
-            var audio = document.getElementById("bgAudio");
-            if (audio.paused) {
-                audio.play();
-            }
         }, false);
     </script>
 </body>
